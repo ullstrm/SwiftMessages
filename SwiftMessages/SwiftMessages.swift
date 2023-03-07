@@ -168,7 +168,7 @@ open class SwiftMessages {
          - `interactive`: Specifies whether or not tapping the
                           dimmed area dismisses the message view.
          */
-        case gray(interactive: Bool)
+        case gray(interactive: Bool, blockAccessibilitySelectionBehindDimView: Bool = false)
 
         /**
          Dim the background behind the message view using the given color.
@@ -194,7 +194,7 @@ open class SwiftMessages {
 
         public var interactive: Bool {
             switch self {
-            case .gray(let interactive):
+            case .gray(let interactive, _):
                 return interactive
             case .color(_, let interactive):
                 return interactive
@@ -202,6 +202,14 @@ open class SwiftMessages {
                 return interactive
             case .none:
                 return false
+            }
+        }
+
+        public var blockAccessibilitySelectionBehindDimView: Bool {
+            switch self {
+            case .gray(_, let blockAccessibilitySelectionBehindDimView):
+                return blockAccessibilitySelectionBehindDimView
+            default: return false
             }
         }
 

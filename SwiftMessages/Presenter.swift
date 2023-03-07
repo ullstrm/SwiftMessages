@@ -405,6 +405,17 @@ class Presenter: NSObject {
                 dismissView.accessibilityLabel = config.dimModeAccessibilityLabel
                 dismissView.accessibilityTraits = UIAccessibilityTraits.button
                 elements.append(dismissView)
+            } else if config.dimMode.blockAccessibilitySelectionBehindDimView {
+                let a11yCatchingView = UIView(frame: maskingView.bounds)
+                a11yCatchingView.translatesAutoresizingMaskIntoConstraints = true
+                a11yCatchingView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                maskingView.addSubview(a11yCatchingView)
+                maskingView.sendSubviewToBack(a11yCatchingView)
+                a11yCatchingView.isUserInteractionEnabled = false
+                a11yCatchingView.isAccessibilityElement = true
+                a11yCatchingView.accessibilityLabel = ""
+                a11yCatchingView.accessibilityTraits = UIAccessibilityTraits.none
+                elements.append(a11yCatchingView)
             }
             if config.dimMode.modal {
                 maskingView.accessibilityViewIsModal = true
